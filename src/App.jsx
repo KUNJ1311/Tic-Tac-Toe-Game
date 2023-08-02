@@ -17,9 +17,9 @@ function App() {
   const [currentMove, setCurrentMove] = useState(0);
   const gamingBoard = history[currentMove];
 
-  const winner = calculateWinner(gamingBoard.squares);
+  const { winner, winningSquares } = calculateWinner(gamingBoard.squares);
   const handleSquareClick = clickedPosition => {
-    if (gamingBoard.squares[clickedPosition] || winner.winner) {
+    if (gamingBoard.squares[clickedPosition] || winner) {
       return;
     }
     setHistory(currentHistory => {
@@ -53,13 +53,26 @@ function App() {
   const moveTo = move => {
     setCurrentMove(move);
   };
+
+  const onNewGameStart = () => {
+    setHistory(NEW_GAME);
+    setCurrentMove(0);
+  };
   return (
     <div className="app">
       <StatusMessage winner={winner} gamingBoard={gamingBoard} />
       <Board
         squares={gamingBoard.squares}
         handleSquareClick={handleSquareClick}
+        winningSquares={winningSquares}
       />
+      <button
+        type="button"
+        className={`btn-reset ${winner ? 'active' : ''}`}
+        onClick={onNewGameStart}
+      >
+        Start new game
+      </button>
       <h2>Current game history</h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
