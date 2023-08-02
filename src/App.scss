@@ -19,6 +19,16 @@ button {
   }
 }
 
+.name {
+  z-index: 10;
+  display: flex;
+  position: absolute;
+  top: 28px;
+  left: 10px;
+  font-size: x-large;
+  color: $blue;
+}
+
 .app {
   font-size: 20px;
   display: flex;
